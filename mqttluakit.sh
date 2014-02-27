@@ -2,6 +2,6 @@
 
 export DISPLAY=:0.0
 cd /home/nerdctrl/mqttluakit
-./mqttluakit.lua
+./mqttluakit.py
 
 sleep 5
