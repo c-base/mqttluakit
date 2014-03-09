@@ -8,19 +8,25 @@ from random import choice
 
 mqtt_client_id = "nerdctrl-luakit"
 mqtt_server = "c-beam.cbrp3.c-base.org"
-page_timeout = 300
+page_timeout = 120
 
 urls = ["http://www.c-base.org", "http://logbuch.c-base.org/", "http://c-portal.c-base.org", 
     "http://c-beam.cbrp3.c-base.org/events", "https://c-beam.cbrp3.c-base.org/c-base-map",
     "http://cbag3.c-base.org/artefact", "https://c-beam.cbrp3.c-base.org/missions", "https://c-beam.cbrp3.c-base.org/weather",
-    "http://c-beam.cbrp3.c-base.org/bvg", "http://c-beam.cbrp3.c-base.org/nerdctrl"]
+    "http://c-beam.cbrp3.c-base.org/bvg", "http://c-beam.cbrp3.c-base.org/nerdctrl",
+    "https://c-beam.cbrp3.c-base.org/rickshaw/examples/fixed.html",
+    "https://c-beam.cbrp3.c-base.org/sensors",
+    "https://c-beam.cbrp3.c-base.org/ceitloch",
+    "http://visibletweets.com/#query=@cbase&animation=2",
+    "http://www.reddit.com/r/cbase",
+]
 
 last_change = datetime.now()
 
 def mqtt_connect(client):
     try:
         client.connect(mqtt_server)
-        client.subscribe("nerdctrl/+", 1)
+        client.subscribe("+/+", 1)
         client.on_message = on_message
     except: pass
 
@@ -42,5 +48,12 @@ def on_message(m, obj, msg):
     if msg.topic == "nerdctrl/open":
         last_change = datetime.now()
         os.system('luakit %s' % msg.payload)
+    if msg.topic == 'user/boarding':
+        last_change = datetime.now()
+        os.system('luakit https://c-beam.cbrp3.c-base.org/welcome/%s' % msg.payload)
+        
+    else:
+        print msg.payload
+   
 
 mqtt_loop()
