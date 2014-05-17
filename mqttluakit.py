@@ -18,7 +18,9 @@ urls = ["http://www.c-base.org", "http://logbuch.c-base.org/", "http://c-portal.
     "https://c-beam.cbrp3.c-base.org/sensors",
     "https://c-beam.cbrp3.c-base.org/ceitloch",
     "http://visibletweets.com/#query=@cbase&animation=2",
-    "http://www.reddit.com/r/cbase",
+    "https://c-beam.cbrp3.c-base.org/reddit",
+    "http://vimeo.com/cbase/videos",
+    "https://wiki.cbrp3.c-base.org/dokuwiki/",
 ]
 
 last_change = datetime.now()
