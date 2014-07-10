@@ -202,7 +202,8 @@ function callback(
 
   print("Topic: " .. topic .. ", message: '" .. message .. "'")
   for _, w in pairs(window.bywidget) do
-    w:new_tab(message)
+    w:navigate(message)
+    --w:new_tab(message)
   end
 end
 
