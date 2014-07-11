@@ -10,3 +10,6 @@ urls = ["http://www.c-base.org", "http://logbuch.c-base.org/", "http://c-portal.
     "http://vimeo.com/cbase/videos",
     "https://wiki.cbrp3.c-base.org/dokuwiki/",
 ]
+
+mqtt_client_id = "nerdctrl-luakit"
+mqtt_client_name = "nerdctrl"

@@ -5,9 +5,11 @@ import time
 import os
 from datetime import datetime, timedelta
 from random import choice
-from urls import urls
 
-mqtt_client_id = "nerdctrl-luakit"
+from config import urls
+from config import mqtt_client_id
+from config import mqtt_client_name
+
 mqtt_server = "c-beam.cbrp3.c-base.org"
 page_timeout = 120
 
@@ -49,7 +51,7 @@ def mqtt_loop():
 
 def on_message(m, obj, msg):
     global last_change
-    if msg.topic == "nerdctrl/open":
+    if msg.topic == "%s/open" % mqtt_client_name:
         last_change = datetime.now()
         os.system('luakit %s' % msg.payload)
     if msg.topic == 'user/boarding':
