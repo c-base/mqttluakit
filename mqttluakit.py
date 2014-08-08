@@ -10,6 +10,7 @@ from random import choice
 from config import urls
 from config import mqtt_client_id
 from config import mqtt_client_name
+from config import mqtt_client_password
 
 mqtt_server = "c-beam.cbrp3.c-base.org"
 page_timeout = 120
@@ -32,7 +33,7 @@ last_change = datetime.now()
 
 def mqtt_connect(client):
     try:
-        print client.username_pw_set("nerdctrl", password="aegergnaervkavrkv2vkvnaev")
+        print client.username_pw_set(mqtt_client_name, password=mqtt_client_password)
         client.connect(mqtt_server)
         client.subscribe("+/+", 1)
         client.on_message = on_message
