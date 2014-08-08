@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
-import mosquitto
+#import mosquitto
+import paho.mqtt.client as paho
 import time
 import os
 from datetime import datetime, timedelta
@@ -31,6 +32,7 @@ last_change = datetime.now()
 
 def mqtt_connect(client):
     try:
+        print client.username_pw_set("nerdctrl", password="aegergnaervkavrkv2vkvnaev")
         client.connect(mqtt_server)
         client.subscribe("+/+", 1)
         client.on_message = on_message
@@ -38,7 +40,8 @@ def mqtt_connect(client):
 
 def mqtt_loop():
     global last_change
-    client = mosquitto.Mosquitto(mqtt_client_id)
+    #client = mosquitto.Mosquitto(mqtt_client_id)
+    client = paho.Client(mqtt_client_id)
     mqtt_connect(client)
     while True:
         result = client.loop(1)
