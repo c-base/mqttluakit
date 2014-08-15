@@ -11,6 +11,7 @@ from config import urls
 from config import mqtt_client_id
 from config import mqtt_client_name
 from config import mqtt_client_password
+import config 
 
 mqtt_server = "c-beam.cbrp3.c-base.org"
 page_timeout = 120
@@ -20,15 +21,14 @@ last_change = datetime.now()
 def mqtt_connect(client):
     try:
         client.username_pw_set(mqtt_client_name, password=mqtt_client_password)
-        try:
-            if config.mqtt_server_tls:
-                client.tls_set(config.mqtt_server_cert, cert_reqs=ssl.CERT_NONE)
-        except:
-            pass
-        client.connect(mqtt_server)
+        if config.mqtt_server_tls:
+            print client.tls_set(config.mqtt_server_cert, cert_reqs=ssl.CERT_OPTIONAL)
+            print client.connect(mqtt_server, port=1884)
+        else:
+            print client.connect(mqtt_server)
         client.subscribe("+/+", 1)
         client.on_message = on_message
-    except: pass
+    except Exception as e: print(e)
 
 def mqtt_loop():
     global last_change
