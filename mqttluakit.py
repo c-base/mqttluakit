@@ -4,6 +4,7 @@ import paho.mqtt.client as paho
 import time
 import os
 import ssl
+import json
 from datetime import datetime, timedelta
 from random import choice
 
@@ -50,7 +51,11 @@ def on_message(m, obj, msg):
         os.system('luakit %s' % msg.payload)
     if msg.topic == 'user/boarding':
         last_change = datetime.now()
-        os.system('luakit https://c-beam.cbrp3.c-base.org/welcome/%s' % msg.payload)
+        try:
+            data = json.loads(msg.payload)
+            os.system('luakit https://c-beam.cbrp3.c-base.org/welcome/%s' % data['user'])
+        except:
+            pass
     else:
         print msg.payload
 
